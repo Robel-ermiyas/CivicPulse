@@ -12,14 +12,15 @@ Run locally:      streamlit run app/main.py
 Run as a Databricks App: this file is the configured entrypoint (see
                           resources/app.yml).
 """
-
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 sys.path.append("..")
-import streamlit as st
 
+import streamlit as st
 from pages import bill_detail, chat, dashboard, feed, history
 
 st.set_page_config(page_title="CivicPulse", page_icon="\U0001F3DB\uFE0F", layout="wide")

@@ -67,10 +67,15 @@ def search_bills_semantic(query: str, state: str | None = None, topics: list[str
                 "score": 0.91,
             }
         ]
-
+    import os
+    from databricks.sdk import WorkspaceClient
     from databricks.vector_search.client import VectorSearchClient
-
+    w = WorkspaceClient()
+    
     client = VectorSearchClient(
+            workspace_url=w.config.host,
+            client_id=w.config.client_id,
+            client_secret=w.config.client_secret,
             disable_notice=True
     )
     index = client.get_index(endpoint_name=AI_SEARCH_ENDPOINT, index_name=AI_SEARCH_INDEX)

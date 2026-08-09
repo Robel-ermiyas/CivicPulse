@@ -1,9 +1,0 @@
-# Databricks Apps runtime config — read by the platform when this repo's
-# app/ directory is deployed as a Databricks App.
-command:
-  - streamlit
-  - run
-  - app/main.py
-env:
-  - name: CIVICPULSE_MOCK_MODE
-    value: "false"

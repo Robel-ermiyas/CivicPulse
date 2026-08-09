@@ -1,8 +1,0 @@
-# CivicPulse — Databricks App resource (the Streamlit frontend in app/).
-
-resources:
-  apps:
-    civicpulse_app:
-      name: civicpulse-app
-      description: "CivicPulse — legislative & city council tracking copilot"
-      source_code_path: ../app

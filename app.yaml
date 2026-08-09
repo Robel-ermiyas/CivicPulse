@@ -3,7 +3,7 @@
 command:
   - streamlit
   - run
-  - main.py
+  - app/main.py
 env:
   - name: CIVICPULSE_MOCK_MODE
     value: "false"

@@ -20,7 +20,7 @@ import sys
 sys.path.append("..")
 import streamlit as st
 
-from app.pages import bill_detail, chat, dashboard, feed, history
+from pages import bill_detail, chat, dashboard, feed, history
 
 st.set_page_config(page_title="CivicPulse", page_icon="\U0001F3DB\uFE0F", layout="wide")
 

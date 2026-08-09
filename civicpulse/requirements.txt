@@ -1,0 +1,21 @@
+# CivicPulse — dependencies
+# Jobs (Bronze/Silver/Gold pipeline)
+pyspark>=3.5
+delta-spark>=3.1
+requests>=2.31
+pdfplumber>=0.11
+databricks-sdk>=0.28
+databricks-vectorsearch>=0.40
+
+# Agent — Databricks Foundation Model API (OpenAI-compatible client,
+# obtained from databricks-sdk's WorkspaceClient; no separate provider SDK)
+openai>=1.30
+databricks-sql-connector>=3.3
+
+# App
+streamlit>=1.35
+psycopg[binary]>=3.1
+psycopg-pool>=3.2
+
+# Dev / test
+pytest>=8.0

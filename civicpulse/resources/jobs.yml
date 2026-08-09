@@ -1,0 +1,54 @@
+# CivicPulse — nightly pipeline job.
+# Sequenced (not parallel/fan-out) per the strategy doc's Free Edition audit:
+# "sequence states/batches rather than fanning out all 50 states at once."
+
+resources:
+  jobs:
+    civicpulse_nightly_pipeline:
+      name: civicpulse-nightly-pipeline
+      schedule:
+        quartz_cron_expression: "0 0 6 * * ?"   # 06:00 daily
+        timezone_id: "UTC"
+        pause_status: PAUSED  # unpause once the demo data path is validated
+
+      tasks:
+        - task_key: ingest_bills
+          spark_python_task:
+            python_file: ../jobs/ingest_bills.py
+          environment_key: default
+
+        - task_key: ingest_agendas
+          depends_on:
+            - task_key: ingest_bills
+          spark_python_task:
+            python_file: ../jobs/ingest_agendas.py
+          environment_key: default
+
+        - task_key: transform_bills
+          depends_on:
+            - task_key: ingest_bills
+          spark_python_task:
+            python_file: ../jobs/transform_bills.py
+          environment_key: default
+
+        - task_key: transform_agendas
+          depends_on:
+            - task_key: ingest_agendas
+          spark_python_task:
+            python_file: ../jobs/transform_agendas.py
+          environment_key: default
+
+        - task_key: embed_chunks
+          depends_on:
+            - task_key: transform_bills
+            - task_key: transform_agendas
+          spark_python_task:
+            python_file: ../jobs/embed_chunks.py
+          environment_key: default
+
+      environments:
+        - environment_key: default
+          spec:
+            client: "1"
+            dependencies:
+              - -r ../requirements.txt

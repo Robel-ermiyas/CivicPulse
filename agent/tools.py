@@ -70,7 +70,9 @@ def search_bills_semantic(query: str, state: str | None = None, topics: list[str
 
     from databricks.vector_search.client import VectorSearchClient
 
-    client = VectorSearchClient()
+    client = VectorSearchClient(
+            disable_notice=True
+    )
     index = client.get_index(endpoint_name=AI_SEARCH_ENDPOINT, index_name=AI_SEARCH_INDEX)
 
     filters: dict[str, Any] = {}

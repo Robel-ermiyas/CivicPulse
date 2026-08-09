@@ -74,8 +74,8 @@ def search_bills_semantic(query: str, state: str | None = None, topics: list[str
     
     client = VectorSearchClient(
             workspace_url=w.config.host,
-            client_id=w.config.client_id,
-            client_secret=w.config.client_secret,
+            service_principal_client_id=w.config.client_id,
+            service_principal_client_secret=w.config.client_secret,
             disable_notice=True
     )
     index = client.get_index(endpoint_name=AI_SEARCH_ENDPOINT, index_name=AI_SEARCH_INDEX)

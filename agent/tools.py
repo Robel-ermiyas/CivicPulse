@@ -86,8 +86,13 @@ def search_bills_semantic(query: str, state: str | None = None, topics: list[str
     if topics:
         filters["topics"] = topics
 
+    emb_resp = w.serving_endpoints.query(
+            name="databricks-gte-large-en",
+            dataframe_records=[{"input": query}]
+    )
+    query_vector = emb_resp.predictions[0]["embedding"]
     results = index.similarity_search(
-        query_text=query,
+        query_vector=query_vector,
         columns=["chunk_id", "parent_id", "parent_type", "chunk_text"],
         num_results=RETRIEVAL_TOP_K,
         filters=filters or None,
